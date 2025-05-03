@@ -6,12 +6,11 @@ import clsx from "clsx";
 export const ConversationBox: FC<ConversationBoxProps> = ({
   sender,
   content,
-  sending,
 }) => (
   <Card
     className={clsx({
       "bg-black text-white ml-4": sender === "user",
-      "bg-white mr-4": sender === "system",
+      "bg-white mr-4": sender === "system" || sender === "assistant",
     })}
   >
     <CardContent>{content}</CardContent>

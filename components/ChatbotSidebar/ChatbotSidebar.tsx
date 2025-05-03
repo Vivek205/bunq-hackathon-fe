@@ -8,7 +8,7 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from "../ui/sidebar";
-import { ConversationBox } from "../ConversationBox";
+import { ConversationBox, ConversationBoxSkeleton } from "../ConversationBox";
 import { submitUserMessage } from "@/app/actions/conversation";
 import { useFormStatus } from "react-dom";
 import { useOptimistic, useState, useTransition } from "react";
@@ -29,18 +29,30 @@ export const ChatbotSidebar = () => {
   const handleSubmit = (formData: FormData) => {
     startTransition(async () => {
       const userContent = formData.get("userMessage") as string;
-      const userMessage: Message = { sender: "user", content: userContent };
+      const userMessage: Message = {
+        sender: "user",
+        content: userContent,
+        sending: true,
+      };
       addOptimisticMessage(userMessage);
       const result = await submitUserMessage(formData);
       if (result.success) {
-        setConversation((prevConv) => [...prevConv, result.message as Message]);
+        setConversation((prevConv) => [
+          ...prevConv,
+          { ...userMessage, sending: false },
+          result.message as Message,
+        ]);
       }
     });
   };
 
   const status = useFormStatus();
   const { pending } = status;
-  console.log("form status", status);
+  console.log("optimisticConversation", optimisticConversation);
+  console.log("conversation", conversation);
+
+  const latestMessage =
+    optimisticConversation[optimisticConversation.length - 1];
 
   return (
     <Sidebar>
@@ -57,8 +69,10 @@ export const ChatbotSidebar = () => {
             key={index}
             sender={message.sender}
             content={message.content}
+            sending={message.sending}
           />
         ))}
+        {latestMessage.sending && <ConversationBoxSkeleton />}
       </SidebarContent>
       <form action={handleSubmit}>
         <SidebarFooter className="flex flex-row gap-2">
@@ -68,7 +82,11 @@ export const ChatbotSidebar = () => {
             placeholder="Ask anything"
           />
           <Button disabled={isPending} type="submit">
-            {isPending ? <Loader className="animate-pulse" /> : <Send />}
+            {isPending ? (
+              <Loader className="animate-pulse animate-spin" />
+            ) : (
+              <Send />
+            )}
           </Button>
         </SidebarFooter>
       </form>

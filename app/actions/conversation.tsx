@@ -6,6 +6,10 @@ const conversationSchema = z.object({
   userMessage: z.string(),
 });
 
+type AssistantResponse = {
+  response: string;
+};
+
 export const submitUserMessage = async (data: FormData) => {
   console.log("submitAction", data);
   await new Promise((res) =>
@@ -29,15 +33,16 @@ export const submitUserMessage = async (data: FormData) => {
 
   const url = new URL(process.env.NEXT_PUBLIC_AI_API_URL!);
   url.searchParams.set("query", validatedFormData.data.userMessage);
-  let response = await fetch(url);
-  response = await response.json();
+
+  let response: any = await fetch(url);
+  response = (await response.json()) as AssistantResponse;
   console.log("response", response);
 
   return {
     success: true,
     message: {
       sender: "assistant",
-      content: response,
+      content: JSON.stringify(response.response),
     },
   };
 };
