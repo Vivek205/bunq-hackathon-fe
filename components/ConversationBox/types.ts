@@ -1,4 +1,6 @@
+import { Sender } from "../ChatbotSidebar";
+
 export type ConversationBoxProps = {
-  sender: "user" | "system";
-  message: string;
+  sender: Sender;
+  content: string;
 };

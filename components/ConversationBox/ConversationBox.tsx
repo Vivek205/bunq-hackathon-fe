@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 export const ConversationBox: FC<ConversationBoxProps> = ({
   sender,
-  message,
+  content,
 }) => (
   <Card
     className={clsx({
@@ -13,6 +13,6 @@ export const ConversationBox: FC<ConversationBoxProps> = ({
       "bg-white mr-4": sender === "system",
     })}
   >
-    <CardContent>{message}</CardContent>
+    <CardContent>{content}</CardContent>
   </Card>
 );

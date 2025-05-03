@@ -2,18 +2,20 @@
 
 import { z } from "zod";
 
-// TODO: Add type for conversation
-const conversation: any[] = [];
-
 const conversationSchema = z.object({
   userMessage: z.string(),
 });
 
 export const submitUserMessage = async (data: FormData) => {
   console.log("submitAction", data);
+  await new Promise((res) =>
+    setTimeout(() => {
+      res(undefined);
+    }, 1000)
+  );
   const formData = Object.fromEntries(data);
   const validatedFormData = conversationSchema.safeParse(formData);
-
+  console.log("validatedFormData", validatedFormData);
   if (!validatedFormData.success) {
     const formFieldErrors = validatedFormData.error.flatten().fieldErrors;
 
@@ -24,11 +26,7 @@ export const submitUserMessage = async (data: FormData) => {
     };
   }
 
-  conversation.push({ role: "user", message: formData.userMessage });
-  conversation.push({ role: "system", message: "sample system response" });
-
   return {
     success: "Successful response",
-    // conversation,
   };
 };
