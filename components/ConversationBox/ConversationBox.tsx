@@ -23,7 +23,7 @@ export const ConversationBox: FC<ConversationBoxProps> = ({
             className={clsx(
               "whitespace-pre-wrap text-sm text-muted-foreground",
               {
-                "text-muted-foreground": sender === "user",
+                "text-white": sender === "user",
               }
             )}
           >
