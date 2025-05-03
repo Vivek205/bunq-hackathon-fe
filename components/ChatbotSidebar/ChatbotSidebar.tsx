@@ -1,3 +1,4 @@
+"use client";
 import { Bot, Send } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -13,6 +14,7 @@ import { useFormStatus } from "react-dom";
 
 export const ChatbotSidebar = () => {
   const { pending } = useFormStatus();
+
   return (
     <Sidebar>
       <SidebarHeader className="gap-0">
