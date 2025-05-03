@@ -15,8 +15,7 @@ export const TransactionTable: FC<TransactionTableProps> = ({ data }) => {
     return null;
   }
   return (
-    <Table className="w-full">
-      <TableCaption>Transactions</TableCaption>
+    <Table className="w-full mt-2 table-auto border-collapse bg-white rounded-lg shadow-md">
       <TableHeader>
         <TableRow>
           <TableHead>Amount</TableHead>

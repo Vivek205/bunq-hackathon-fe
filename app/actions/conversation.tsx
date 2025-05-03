@@ -44,7 +44,7 @@ export const submitUserMessage = async (data: FormData) => {
       message: {
         sender: "assistant",
         content: JSON.stringify(response.response),
-        transactions: response.top_transactions,
+        transactions: response.all_transactions,
       },
     };
   } catch (error) {
