@@ -44,7 +44,7 @@ export const ChatbotMain = () => {
     optimisticConversation[optimisticConversation.length - 1];
 
   return (
-    <div className="flex flex-col w-96 h-full border-r-2 border-l-2">
+    <div className="flex flex-col w-96 h-full border-r-2 border-l-2 p-2">
       <div>
         <h3 className="font-bold">AI Assistant</h3>
         <span className="text-xs">Always here to help</span>
@@ -62,7 +62,7 @@ export const ChatbotMain = () => {
         {latestMessage.sending && <ConversationBoxSkeleton />}
       </div>
       <div>
-        <form action={handleSubmit}>
+        <form action={handleSubmit} className="flex gap-2">
           <Input
             disabled={isPending}
             name="userMessage"
