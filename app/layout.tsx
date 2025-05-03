@@ -27,11 +27,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen flex gap-2`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen flex bg-neutral-200`}
       >
         {/* <SidebarProvider>
           <ChatbotSidebar /> */}
-        <aside className="p-4 border-r flex flex-col">
+        <aside className="p-4 flex flex-col">
           <div className="text-4xl font-black text-center">B</div>
           <div className="flex-1"></div>
           <div className="text-xl font-black flex flex-col gap-4">
