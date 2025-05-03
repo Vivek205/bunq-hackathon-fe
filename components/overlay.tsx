@@ -14,7 +14,7 @@ export default function Overlay() {
     <div className="fixed inset-0 bg-gray-200 50 z-10 grid place-items-center">
       <div>
         <button
-          className="bg-black text-white py-4 px-8 rounded-full font-bold cursor-pointer"
+          className="bg-black text-white py-4 px-8 rounded-full font-bold cursor-pointer min-w-40"
           onClick={() => {
             setLoading(true);
             localStorage.setItem("overlay", "true");
