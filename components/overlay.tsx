@@ -14,7 +14,7 @@ export default function Overlay() {
     <div className="fixed inset-0 bg-gray-200 50 z-10 grid place-items-center">
       <div>
         <button
-          className="bg-black text-white py-4 px-8 rounded-full font-bold cursor-pointer min-w-40"
+          className="bg-black text-white py-4 px-8 rounded-full font-bold cursor-pointer min-w-40 "
           onClick={() => {
             setLoading(true);
             localStorage.setItem("overlay", "true");
@@ -35,7 +35,7 @@ export default function Overlay() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="animate-spin"
+              className="animate-spin mx-auto"
             >
               <path d="M12 2v4" />
               <path d="m16.2 7.8 2.9-2.9" />
