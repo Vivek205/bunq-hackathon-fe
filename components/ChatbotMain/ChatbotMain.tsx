@@ -53,8 +53,8 @@ export const ChatbotMain = () => {
   return (
     <div className="flex flex-col w-full max-w-xl h-full border-2 rounded-lg p-4">
       <div>
-        <h3 className="font-bold">AI Assistant</h3>
-        <span className="text-xs">Always here to help</span>
+        <h3 className="font-bold text-2xl">Bunq Buddy</h3>
+        <span className="text-sm text-muted-foreground italic">Talk to Your Money.</span>
       </div>
       <div className="grow mt-2 overflow-y-auto">
         {optimisticConversation.map((message, index) => (

@@ -21,7 +21,7 @@ export const ConversationBox: FC<ConversationBoxProps> = ({
         <CardContent>
           <pre
             className={clsx(
-              "whitespace-pre-wrap text-sm text-muted-foreground",
+              "whitespace-pre-wrap text-sm text-muted-foreground font-sans",
               {
                 "text-white": sender === "user",
               }

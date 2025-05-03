@@ -56,7 +56,7 @@ export const ChatbotSidebar = () => {
     <Sidebar>
       <SidebarHeader className="gap-0">
         <div className="flex justify-between font-bold">
-          <p>AI Assistant</p>
+          <p>Bunq Buddy</p>
           <Bot />
         </div>
         <span className="text-sm">Always here to help</span>
