@@ -27,15 +27,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen`}
       >
-        <SidebarProvider>
-          <ChatbotSidebar />
-          <main>
-            <SidebarTrigger />
-            {children}
-          </main>
-        </SidebarProvider>
+        {/* <SidebarProvider>
+          <ChatbotSidebar /> */}
+        <main className="h-full">
+          {/* <SidebarTrigger /> */}
+          {children}
+        </main>
+        {/* </SidebarProvider> */}
       </body>
     </html>
   );

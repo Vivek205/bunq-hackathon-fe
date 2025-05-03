@@ -1,3 +1,9 @@
+import { ChatbotMain } from "@/components/ChatbotMain/ChatbotMain";
+
 export default function Home() {
-  return <div>Home Page</div>;
+  return (
+    <div className="flex justify-center h-full">
+      <ChatbotMain />
+    </div>
+  );
 }

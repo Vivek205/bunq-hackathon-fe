@@ -1,20 +1,15 @@
 "use client";
-import { Bot, Loader, Send } from "lucide-react";
+
+import { Loader, Send } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-} from "../ui/sidebar";
-import { ConversationBox, ConversationBoxSkeleton } from "../ConversationBox";
-import { submitUserMessage } from "@/app/actions/conversation";
+import { Conversation, Message } from "../ChatbotSidebar/types";
+import { initialSystemMessage } from "../ChatbotSidebar/constants";
 import { useOptimistic, useState, useTransition } from "react";
-import { Conversation, Message } from "./types";
-import { initialSystemMessage } from "./constants";
+import { submitUserMessage } from "@/app/actions/conversation";
+import { ConversationBox, ConversationBoxSkeleton } from "../ConversationBox";
 
-export const ChatbotSidebar = () => {
+export const ChatbotMain = () => {
   const [conversation, setConversation] = useState<Conversation>([
     initialSystemMessage,
   ]);
@@ -45,23 +40,16 @@ export const ChatbotSidebar = () => {
     });
   };
 
-
-  console.log("optimisticConversation", optimisticConversation);
-  console.log("conversation", conversation);
-
   const latestMessage =
     optimisticConversation[optimisticConversation.length - 1];
 
   return (
-    <Sidebar>
-      <SidebarHeader className="gap-0">
-        <div className="flex justify-between font-bold">
-          <p>AI Assistant</p>
-          <Bot />
-        </div>
-        <span className="text-sm">Always here to help</span>
-      </SidebarHeader>
-      <SidebarContent className="p-1">
+    <div className="flex flex-col w-96 h-full border-r-2 border-l-2">
+      <div>
+        <h3 className="font-bold">AI Assistant</h3>
+        <span className="text-xs">Always here to help</span>
+      </div>
+      <div className="grow">
         {optimisticConversation.map((message, index) => (
           <ConversationBox
             key={index}
@@ -72,9 +60,9 @@ export const ChatbotSidebar = () => {
           />
         ))}
         {latestMessage.sending && <ConversationBoxSkeleton />}
-      </SidebarContent>
-      <form action={handleSubmit}>
-        <SidebarFooter className="flex flex-row gap-2">
+      </div>
+      <div>
+        <form action={handleSubmit}>
           <Input
             disabled={isPending}
             name="userMessage"
@@ -87,8 +75,8 @@ export const ChatbotSidebar = () => {
               <Send />
             )}
           </Button>
-        </SidebarFooter>
-      </form>
-    </Sidebar>
+        </form>
+      </div>
+    </div>
   );
 };
