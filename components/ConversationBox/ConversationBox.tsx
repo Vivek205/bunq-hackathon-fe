@@ -9,7 +9,7 @@ export const ConversationBox: FC<ConversationBoxProps> = ({
   content,
   transactions,
 }) => (
-  <div className="px-2 mt-2">
+  <div className="mt-2">
     <div className={clsx("flex mb-2", { "justify-end": sender === "user" })}>
       <Card
         className={clsx("max-w-80", {

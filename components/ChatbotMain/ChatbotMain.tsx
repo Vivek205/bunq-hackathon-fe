@@ -44,12 +44,12 @@ export const ChatbotMain = () => {
     optimisticConversation[optimisticConversation.length - 1];
 
   return (
-    <div className="flex flex-col w-96 h-full border-r-2 border-l-2 p-2">
+    <div className="flex flex-col w-full max-w-xl h-full border-2 rounded-lg p-4">
       <div>
         <h3 className="font-bold">AI Assistant</h3>
         <span className="text-xs">Always here to help</span>
       </div>
-      <div className="grow">
+      <div className="grow mt-2">
         {optimisticConversation.map((message, index) => (
           <ConversationBox
             key={index}
