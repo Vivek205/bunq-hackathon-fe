@@ -70,6 +70,7 @@ export const ChatbotSidebar = () => {
             sender={message.sender}
             content={message.content}
             sending={message.sending}
+            transactions={message.transactions}
           />
         ))}
         {latestMessage.sending && <ConversationBoxSkeleton />}
