@@ -49,7 +49,7 @@ export const ChatbotMain = () => {
         <h3 className="font-bold">AI Assistant</h3>
         <span className="text-xs">Always here to help</span>
       </div>
-      <div className="grow mt-2">
+      <div className="grow mt-2 overflow-y-auto">
         {optimisticConversation.map((message, index) => (
           <ConversationBox
             key={index}
