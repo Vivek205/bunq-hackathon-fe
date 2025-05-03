@@ -6,6 +6,7 @@ import clsx from "clsx";
 export const ConversationBox: FC<ConversationBoxProps> = ({
   sender,
   content,
+  sending,
 }) => (
   <Card
     className={clsx({

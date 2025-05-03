@@ -20,13 +20,24 @@ export const submitUserMessage = async (data: FormData) => {
     const formFieldErrors = validatedFormData.error.flatten().fieldErrors;
 
     return {
+      success: false,
       errors: {
         userMessage: formFieldErrors.userMessage,
       },
     };
   }
 
+  const url = new URL(process.env.NEXT_PUBLIC_AI_API_URL!);
+  url.searchParams.set("query", validatedFormData.data.userMessage);
+  let response = await fetch(url);
+  response = await response.json();
+  console.log("response", response);
+
   return {
-    success: "Successful response",
+    success: true,
+    message: {
+      sender: "assistant",
+      content: response,
+    },
   };
 };

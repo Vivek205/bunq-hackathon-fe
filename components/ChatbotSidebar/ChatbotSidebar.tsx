@@ -11,7 +11,7 @@ import {
 import { ConversationBox } from "../ConversationBox";
 import { submitUserMessage } from "@/app/actions/conversation";
 import { useFormStatus } from "react-dom";
-import { useState, useTransition } from "react";
+import { useOptimistic, useState, useTransition } from "react";
 import { Conversation, Message } from "./types";
 import { initialSystemMessage } from "./constants";
 
@@ -19,18 +19,21 @@ export const ChatbotSidebar = () => {
   const [conversation, setConversation] = useState<Conversation>([
     initialSystemMessage,
   ]);
+  const [optimisticConversation, addOptimisticMessage] = useOptimistic<
+    Conversation,
+    Message
+  >(conversation, (state, newMessage) => [...state, newMessage]);
+
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (formData: FormData) => {
     startTransition(async () => {
-      const userMessage = formData.get("userMessage") as string;
+      const userContent = formData.get("userMessage") as string;
+      const userMessage: Message = { sender: "user", content: userContent };
+      addOptimisticMessage(userMessage);
       const result = await submitUserMessage(formData);
       if (result.success) {
-        const newMessage: Message = {
-          sender: "user",
-          content: userMessage ?? "",
-        };
-        setConversation((prevConv) => [...prevConv, newMessage]);
+        setConversation((prevConv) => [...prevConv, result.message as Message]);
       }
     });
   };
@@ -49,7 +52,7 @@ export const ChatbotSidebar = () => {
         <span className="text-sm">Always here to help</span>
       </SidebarHeader>
       <SidebarContent className="p-1">
-        {conversation.map((message, index) => (
+        {optimisticConversation.map((message, index) => (
           <ConversationBox
             key={index}
             sender={message.sender}
