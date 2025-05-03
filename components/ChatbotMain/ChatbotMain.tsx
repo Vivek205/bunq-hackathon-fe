@@ -9,6 +9,13 @@ import { useOptimistic, useState, useTransition } from "react";
 import { submitUserMessage } from "@/app/actions/conversation";
 import { ConversationBox, ConversationBoxSkeleton } from "../ConversationBox";
 
+const PRESET_QUESTIONS = [
+  "Help me understand my recent transactions",
+  "What are my top spending categories?",
+  "Can you provide a summary of my transactions?",
+  "How much money did I spend last month?",
+];
+
 export const ChatbotMain = () => {
   const [conversation, setConversation] = useState<Conversation>([
     initialSystemMessage,
@@ -21,8 +28,8 @@ export const ChatbotMain = () => {
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (formData: FormData) => {
+    const userContent = formData.get("userMessage") as string;
     startTransition(async () => {
-      const userContent = formData.get("userMessage") as string;
       const userMessage: Message = {
         sender: "user",
         content: userContent,
@@ -61,6 +68,17 @@ export const ChatbotMain = () => {
         ))}
         {latestMessage.sending && <ConversationBoxSkeleton />}
       </div>
+      {optimisticConversation.length === 1 && (
+        <div className="py-4 text-sm grid grid-cols-2 gap-3">
+          {PRESET_QUESTIONS.map((question) => (
+            <div key={question} className="bg-amber-50 border border-amber-100 hover:bg-amber-100 text-amber-600 px-4 py-2 rounded-lg cursor-pointer" onClick={() =>{
+              const formData = new FormData();
+              formData.append('userMessage', question);
+              handleSubmit(formData)
+            }}>{question}</div>
+          ))}
+        </div>
+      )}
       <div>
         <form action={handleSubmit} className="flex gap-2">
           <Input
